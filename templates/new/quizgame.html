@@ -1,0 +1,171 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+        }
+
+        .alphabet-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .alphabet-item {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .alphabet-item img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 5px;
+        }
+
+        .navbar {
+
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 10px;
+            border: 0px solid white;
+            border-radius: 0px;
+            transition: 0.1s;
+        }
+
+        .navbar a:hover {
+            color: #ccc;
+            border-bottom: 2px solid white;
+            border-radius: 10px;
+        }
+
+        body {
+            background-image: url("https://i.ibb.co/0F1Vj0Q/backgrond1.jpg");
+            height: 100vh;
+            width: 100%;
+            background-position: center;
+            background-size: cover;
+        }
+
+
+        .quiz {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .quiz img {
+            border-radius: 10px;
+        }
+
+        .quiz ul{
+            background-image:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7));
+            border-radius: 20px;
+        }
+        .quiz li {
+            color: white;
+            list-style: none;
+        }
+        .quiz button{
+            padding: 10px;
+            background-color: white;
+            font-weight: bolder;
+            transition: 0.3s;
+        }
+        .quiz button:hover{
+            scale: 1.1;
+        }
+        .frmat{
+            background-image: (rgba(1,1,1,0.1));
+            backdrop-filter: blur(9px);
+            -webkit-backdrop-filter: blur(9px);
+            gap: 10px;
+            display: flex;
+            color:black ;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Sign Learn</h1>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Alphabet</a></li>
+                {% if name %}
+
+                <li><a href="{% url 'image' name  %}">Sign to Image</a></li>
+                <li><a href="{% url 'translator' name %}">Sign to Translate</a></li>
+                <li><a href="{% url 'texttospeech' name %}">Sign to Speech</a></li>
+                {% else %}
+                <li><a href="{% url 'translator' ' ' %}">Sign to Image</a></li>
+                <li><a href="{% url 'image' ' ' %}">Sign to Translate</a></li>
+                <li><a href="{% url 'texttospeech' ' ' %}">Sign to Speech</a></li>
+
+                {% endif %}
+                <li><a href="{% url 'quizgame' %}">Take Quiz</a></li>
+                <li><a href="{% url 'texttosign' %}">Text to Sign</a></li>
+                <li><a href="{% url 'leaderboard' %}">LeaderBoard</a></li>
+                <li><a href="{% url 'alpha' 'none' %}">Reset</a></li>
+                <li><a href="accounts/login">Login</a></li>
+                <li><a href="accounts/signup">Signup</a></li>
+            </ul>
+        </nav>
+        <div class="quiz">
+            <div class="frmat">
+                <img src="{% static 'images/'|add:crtans |add:'/' %}" alt="Image" class="image">
+                <form method="post" action="{% url 'quizresult' ans %}">
+                    {% csrf_token %}
+                    <ul class="options">
+                        {% for i in options %}
+                        <li>
+                            <input type="radio" id="option1" name="answer" value="{{i}}">
+                            <label>{{i}}</label>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <button type="submit" class="btn-submit">Submit Answer</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

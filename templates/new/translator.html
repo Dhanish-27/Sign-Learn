@@ -1,0 +1,280 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- the below line indicates the animation.io web's animation library -->
+    <link rel="stylesheet" href="{% static 'animationio/cssanimation.css' %}">
+
+    <link rel="stylesheet" href="{% static 'animationio/cssanimation.min.css' %}">
+
+    <!-- the below line indicates the animation while scrolling (aos) web's animation library -->
+
+    <link rel="stylesheet" href="{% static 'aos/aos.css' %}">
+
+
+    <!-- the below line indicates the bootstraps grid system library -->
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!-- the below line indicates the text animation while hovering library -->
+
+    <link rel="stylesheet" href="{% static 'hover/hover-min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'hover/hover.css' %}">
+
+    <!-- the below line indicates the image animation while hovering library -->
+
+    <link rel="stylesheet" href="{% static 'imagehover/imagehover.css' %}">
+
+    <link rel="stylesheet" href="{% static 'imagehover/imagehover.min.css' %}">
+
+    <!-- this is to animate_animated -->
+    <link rel="stylesheet" href="{% static 'animatecss/animate.min.css' %}">
+
+
+    <!-- this below place is for javascript -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'animationio/letteranimation.js' %}"></script>
+
+    <script src="{% static 'animationio/letteranimation.min.js' %}"></script>
+
+    <script src="{% static 'aos/aos.js' %}"></script>
+
+
+    <style>
+        /* Global Styles */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-image: url("https://i.ibb.co/0F1Vj0Q/backgrond1.jpg");
+            background-position: center;
+            background-size: cover;
+        }
+
+        /* Translation Container */
+
+        .translation-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            /* background-color: #fff; */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+            min-height: 400px;
+            /* gap: 20px; */
+        }
+
+        /* Original Sentence */
+
+        .original-sentence {
+            margin-bottom: 20px;
+        }
+
+        .original-sentence .original-text {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .original-sentence #original-sentence-text {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Translation Input */
+
+        .translation-input {
+            margin-bottom: 20px;
+        }
+
+        .translation-input label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .translation-input input[type="text"] {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Translation Output */
+
+        .translation-output {
+            margin-bottom: 20px;
+        }
+
+        .translation-output .translated-text {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .translation-output #translated-sentence-text {
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* Translate Button */
+
+        #translate-button {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #989898;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #translate-button:hover {
+            background-color: #c0c1c0;
+        }
+
+
+        @media only screen and (max-width: 768px) {
+            .translation-container {
+                margin: 20px auto;
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .translation-container {
+                padding: 10px;
+            }
+
+            .original-sentence #original-sentence-text {
+                font-size: 16px;
+            }
+
+            .translation-output #translated-sentence-text {
+                font-size: 16px;
+            }
+        }
+
+        .navbar {
+
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 10px;
+            border: 0px solid white;
+            border-radius: 0px;
+            transition: 0.1s;
+        }
+
+        .navbar a:hover {
+            color: #ccc;
+            border-bottom: 2px solid white;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Sign Learn</h1>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'alphabets' %}">Alphabet</a></li>
+                {% if name %}
+
+                <li><a href="{% url 'image' name  %}">Sign to Image</a></li>
+                <li><a href="{% url 'translator' name %}">Sign to Translate</a></li>
+                <li><a href="{% url 'texttospeech' name %}">Sign to Speech</a></li>
+                {% else %}
+                <li><a href="{% url 'translator' ' ' %}">Sign to Translate</a></li>
+                <li><a href="{% url 'image' ' ' %}">Sign to Image</a></li>
+                <li><a href="{% url 'texttospeech' ' ' %}">Sign to Speech</a></li>
+                
+                {% endif %}
+                <li><a href="{% url 'quizgame' %}">Take Quiz</a></li>
+                <li><a href="{% url 'texttosign' %}">Text to Sign</a></li>
+                <li><a href="{% url 'leaderboard' %}">LeaderBoard</a></li>
+                <li><a href="{% url 'alpha' 'none' %}">Reset</a></li>
+                <li><a href="accounts/login">Login</a></li>
+                <li><a href="accounts/signup">Signup</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="translation-container">
+        <h2>Translation Tool</h2>
+        <hr>
+        <form>
+            <div class="original-text-input">
+                <label for="original-text">Original Text:<h3>{{name}}</h3></label>
+                <!-- <textarea id="original-text" placeholder="Enter original text"></textarea> -->
+            </div>
+            <form action="{% url 'translator' name %}" method="post">
+                <div class="language-options">
+                    <label for="language-select">Select Language:</label>
+                    <select id="language-select" name="selection">
+                        <option value="None">Select a language</option>
+                        <option value="ta">Tamil</option>
+                        <option value="te">telugu</option>
+                        <option value="ml">Malayalam</option>
+                        <option value="hi">Hindi</option>
+                        <option value="gu">Gujarati</option>
+                        <option value="mr">Marati</option>
+                        <option value="bn">Bengali</option>
+                        <option value="ur">Urdu</option>
+                        <!-- Add more language options as needed -->
+                    </select>
+                </div>
+                <button id="translate-button">Translate</button>
+            </form>
+        </form>
+        <div class="translation-output">
+            <br>
+            <br>
+            <h3>Translated Text:</h3>
+            <div id="translated-text">
+                <h1>{{translated}}</h1>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

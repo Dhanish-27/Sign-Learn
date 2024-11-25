@@ -1,0 +1,165 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("https://i.ibb.co/dMjBLjy/background.jpg");
+            background-size: cover;
+            background-position: center;
+            height:100%;
+        }
+        
+        /* Add navigation styles from home.html */
+        .navbar {
+           
+           color: #fff;
+           padding: 1em;
+           text-align: center;
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+       }
+
+       .navbar ul {
+           list-style: none;
+           margin: 0;
+           padding: 0;
+           display: flex;
+           justify-content: space-between;
+       }
+
+       .navbar a {
+           color: #fff;
+           text-decoration: none;
+           margin-right: 20px;
+           padding: 10px;
+           border: 0px solid white;
+           border-radius: 0px;
+           transition: 0.1s;
+       }
+
+       .navbar a:hover {
+           color: #ccc;
+           border-bottom: 2px solid white;
+           border-radius: 10px;
+       }
+        
+        /* Add container styles from home.html */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            color: white;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        /* Add leaderboard table styles */
+        #leaderboard {
+            width: 100%;
+            border-collapse: collapse;
+            
+        }
+        
+        
+        #leaderboard th,
+        #leaderboard td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        #leaderboard th {
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            color: #fff;
+        }
+        
+        #leaderboard tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        #leaderboard tr:hover {
+            background-color: #ccc;
+        }
+        .container-1{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Sign Learn</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="alphabet">Alphabet</a></li>
+            {% if name %}
+
+            <li><a href="{% url 'image' name  %}">Sign to Image</a></li>
+            <li><a href="{% url 'translator' name %}">Sign to Translate</a></li>
+            <li><a href="{% url 'texttospeech' name %}">Sign to Speech</a></li>
+            {% else %}
+            <li><a href="{% url 'translator' ' ' %}">Sign to translator</a></li>
+            <li><a href="{% url 'image' ' ' %}">Sign to Image</a></li>
+            <li><a href="{% url 'texttospeech' ' ' %}">Sign to Speech</a></li>
+            
+            {% endif %}
+            <li><a href="{% url 'quizgame' %}">Take Quiz</a></li>
+            <li><a href="{% url 'texttosign' %}">Text to Sign</a></li>
+            <li><a href="{% url 'leaderboard' %}">LeaderBoard</a></li>
+            <li><a href="{% url 'alpha' 'none' %}">Reset</a></li>
+            <li><a href="accounts/login">Login</a></li>
+            <li><a href="accounts/signup">Signup</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Leaderboard</h1>
+        <div class="container-1">
+            <table id="leaderboard" style="width: 40%;">
+                <thead>
+                    <tr>
+                        <th>
+                            Rank
+                        </th>
+                    </tr>
+                </thead>
+                {% for i in length %}
+                <tbody>
+                    <tr>
+                        <th>
+                            {{i}}
+                        </th>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+            <table id="leaderboard">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                {% for i in obj %}
+                <tbody>
+                    <tr>
+                        <th>{{i.name}}</th>
+                        <th>{{i.points}}</th>
+                    </tr>
+                </tbody>
+                {% endfor %}
+            </table>
+    </div>
+    <script>
+    </script>
+</body>
+</html>

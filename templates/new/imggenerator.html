@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphabet Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            width: 100%;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+        }
+
+        .alphabet-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .alphabet-item {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .alphabet-item img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 5px;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 10px;
+            border: 0px solid white;
+            border-radius: 0px;
+            transition: 0.1s;
+        }
+
+        .navbar a:hover {
+            color: #ccc;
+            border-bottom: 2px solid white;
+            border-radius: 10px;
+        }
+
+        body {
+            background-image: url("https://i.ibb.co/0F1Vj0Q/backgrond1.jpg");
+            height: 100vh;
+            width: 100%;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .word-displayer {
+            display: block;
+            max-height: 50px;
+        }
+
+        #search-box {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            width: 300px;
+            height: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #search-box:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        }
+
+        #search-box::placeholder {
+            color: #ccc;
+        }
+
+        #button {
+            background-color: #8f8f8f;
+            /* Green */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #button:hover {
+            background-color: #c4c7c4;
+            /* Darker green on hover */
+        }
+
+        #button:active {
+            background-color: #afafaf;
+            /* Darker green on click */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        .search-result {
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            /* border: 2px solid aqua; */
+
+        }
+
+        .search-result img {
+            width: 350px;
+            aspect-ratio: 3/4;
+            margin: 10px;
+            background: rgb(71, 71, 71);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Sign Learn</h1>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'alphabets' %}">Alphabet</a></li>
+                {% if name %}
+
+                <li><a href="{% url 'image' name  %}">Sign to Image</a></li>
+                <li><a href="{% url 'translator' name %}">Sign to Translate</a></li>
+                <li><a href="{% url 'texttospeech' name %}">Sign to Speech</a></li>
+                {% else %}
+                <li><a href="{% url 'translator' ' ' %}">Sign to Translate</a></li>
+                <li><a href="{% url 'image' ' ' %}">Sign to Image</a></li>
+                <li><a href="{% url 'texttospeech' ' ' %}">Sign to Speech</a></li>
+                
+                {% endif %}
+                <li><a href="{% url 'quizgame' %}">Take Quiz</a></li>
+                <li><a href="{% url 'texttosign' %}">Text to Sign</a></li>
+                <li><a href="{% url 'leaderboard' %}">LeaderBoard</a></li>
+                <li><a href="{% url 'alpha' 'none' %}">Reset</a></li>
+                <li><a href="accounts/login">Login</a></li>
+                <li><a href="accounts/signup">Signup</a></li>
+            </ul>
+        </nav>
+        <center>
+            <div class="container">
+                <div class="search-form">
+                    <form action="#" id="search-form">
+                        <input type="text" name="search-box" id="search-box" placeholder="Search for images..."
+                            value="{{name}}">
+                        <button id="button">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="search-result" id="search-result">
+
+            </div>
+            <div class="show-more-button" id="show-more-button"></div>
+        </center>
+    </div>
+    <script>
+        const searchform = document.getElementById("search-form");
+        const searchbox = document.getElementById("search-box");
+        const searchresult = document.getElementById("search-result")
+        const showmorebutton = document.getElementById("show-more-button")
+
+        let keyword = "";
+        let page = 1;
+        const accessKey = 'm71OCCp8AvV9VfNJR14i3JLnTnuzXd6YT9we4BgHr8Q';
+        async function searchimages() {
+            keyword = searchbox.value;
+            const url = `https://api.unsplash.com/search/photos?query=${keyword}&client_id=${accessKey}`;
+            const response = await fetch(url);
+            const data = await response.json();
+            const results = data.results;
+            results.map((result) => {
+                const image = document.createElement("img");
+                image.src = result.urls.small;
+                searchresult.appendChild(image)
+            })
+        }
+        searchform.addEventListener("submit", (e) => {
+            e.preventDefault();
+            page = 1;
+            searchimages();
+        })
+    </script>
+</body>
+
+</html>

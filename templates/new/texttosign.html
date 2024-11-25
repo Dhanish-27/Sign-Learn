@@ -1,0 +1,256 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- the below line indicates the animation.io web's animation library -->
+    <link rel="stylesheet" href="../animationio/cssanimation.css">
+
+    <link rel="stylesheet" href="../animationio/cssanimation.min.css">
+
+    <!-- the below line indicates the animation while scrolling (aos) web's animation library -->
+
+    <link rel="stylesheet" href="../aos/aos.css">
+
+
+    <!-- the below line indicates the bootstraps grid system library -->
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+    <!-- the below line indicates the text animation while hovering library -->
+
+    <link rel="stylesheet" href="../hover/hover-min.css">
+
+    <link rel="stylesheet" href="../hover/hover.css">
+
+    <!-- the below line indicates the image animation while hovering library -->
+
+    <link rel="stylesheet" href="../imagehover/imagehover.css">
+
+    <link rel="stylesheet" href="../imagehover/imagehover.min.css">
+
+    <!-- this is to animate_animated -->
+    <link rel="stylesheet" href="../animatecss/animate.min.css">
+    <link rel="stylesheet" href="{% static 'my css/stylealpha.css' %}">
+
+
+    <!-- this below place is for javascript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <script src="../animationio/letteranimation.js"></script>
+
+    <script src="../animationio/letteranimation.min.js"></script>
+
+    <script src="../aos/aos.js"></script>
+    <style>
+        /* Global Styles */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-position: center;
+            background-size: cover;
+            height: 100vh;
+            width: 100%;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: white;
+        }
+
+
+
+        /* Form Styles */
+
+        form {
+            width: 80%;
+            /* updated */
+            margin: 20px auto;
+            /* updated */
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        form input[type="submit"] {
+            background-color: #04AA6D;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Box Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .box {
+            margin: 20px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .box .label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .box:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Responsive Styles */
+
+        @media (max-width: 768px) {
+            form {
+                width: 80%;
+                margin: 20px auto;
+            }
+
+            .box {
+                width: 80%;
+                margin: 20px auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            form {
+                width: 90%;
+                margin: 10px auto;
+            }
+
+            .box {
+                width: 90%;
+                margin: 10px auto;
+            }
+        }
+        .navbar {
+            color: #fff;
+            padding: 1em;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 10px;
+            border: 0px solid white;
+            border-radius: 0px;
+            transition: 0.1s;
+        }
+
+        .navbar a:hover {
+            color: #ccc;
+            border-bottom: 2px solid white;
+            border-radius: 10px;
+        }
+
+        body {
+            background-image: url("https://i.ibb.co/0F1Vj0Q/backgrond1.jpg");
+            height: 100vh;
+            width: 100%;
+            background-position: center;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar">
+            <h1>Sign Learn</h1>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'alphabets' %}">Alphabet</a></li>
+                {% if name %}
+
+                <li><a href="{% url 'image' name  %}">Sign to Image</a></li>
+                <li><a href="{% url 'translator' name %}">Sign to Translate</a></li>
+                <li><a href="{% url 'texttospeech' name %}">Sign to Speech</a></li>
+                {% else %}
+                <li><a href="{% url 'translator' ' ' %}">Sign to Translate</a></li>
+                <li><a href="{% url 'image' ' ' %}">Sign to Image</a></li>
+                <li><a href="{% url 'texttospeech' ' ' %}">Sign to Speech</a></li>
+
+                {% endif %}
+                <li><a href="{% url 'quizgame' %}">Take Quiz</a></li>
+                <li><a href="{% url 'texttosign' %}">Text to Sign</a></li>
+                <li><a href="{% url 'leaderboard' %}">LeaderBoard</a></li>
+                <li><a href="{% url 'alpha' 'none' %}">Reset</a></li>
+                <li><a href="accounts/login">Login</a></li>
+                <li><a href="accounts/signup">Signup</a></li>
+            </ul>
+        </nav>
+        <div class="info">
+            <form action="{% url 'texttosign' %}" method="get">
+                <input type="text" id="input-box" placeholder="Enter your text here" name="searchbox">
+                <input type="submit" value="Submit">
+            </form>
+            <div class="image-container">
+                {% for i in text %}
+                {% if i %}
+                <div class="box">
+                    <img src="{% static 'images/'|add:i|add:'/' %}">
+                </div>
+                <div class="label">{{i}}</div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
