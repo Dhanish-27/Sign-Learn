@@ -18,7 +18,7 @@ Include a screenshot or GIF showcasing your app here.
 ## Technology Stack
 - **Backend**: Python, Django
 - **Frontend**: HTML, CSS, JavaScript
-- **Database**: PostgreSQL (or your choice of DB)
+- **Database**: PostgreSQL 
 
 
 ---
@@ -26,7 +26,7 @@ Include a screenshot or GIF showcasing your app here.
 ## Prerequisites
 Before you begin, ensure you have met the following requirements:
 - Python 3.8+ installed on your system.
-- A PostgreSQL server set up for database storage (or replace with your database choice).
+- A PostgreSQL server set up for database storage.
 - Basic knowledge of Django and JavaScript.
 
 ---
